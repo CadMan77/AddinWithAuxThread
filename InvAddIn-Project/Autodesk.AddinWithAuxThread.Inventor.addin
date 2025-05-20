@@ -1,0 +1,14 @@
+<Addin Type="Standard">
+  <ClassId>{8551D99F-F45E-4E0F-A033-736DF2060647}</ClassId>
+  <ClientId>{8551D99F-F45E-4E0F-A033-736DF2060647}</ClientId>
+	<DisplayName Language="1033">AddinWithAuxThread</DisplayName>
+  <Description Language="1033">Testing multi (two) thread technology.</Description>
+  <Assembly>AddinWithAuxThread.dll</Assembly>
+  <LoadOnStartUp>1</LoadOnStartUp>
+  <Hidden>0</Hidden>
+  <SupportedSoftwareVersionGreaterThan>23..</SupportedSoftwareVersionGreaterThan>
+  <!--Created for Autodesk Inventor Version 2020+-->
+  <!--DataVersion>1</DataVersion-->
+  <!--UserInterfaceVersion>1</UserInterfaceVersion-->
+  <!--UserUnloadable>0</UserUnloadable-->
+</Addin>

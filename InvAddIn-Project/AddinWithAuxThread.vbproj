@@ -1,0 +1,418 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <OutputType>Library</OutputType>
+    <StartupObject>
+    </StartupObject>
+    <MyType>Windows</MyType>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <PublishUrl>http://localhost/InventorAddIn/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+  </PropertyGroup>
+  <!--<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>..\..\..\..\..\ProgramData\Autodesk\Inventor Addins\AddinWithAuxThread\</OutputPath>
+    <DocumentationFile>
+    </DocumentationFile>
+    <NoWarn>42016,42017,42018,42019,42032,42353,42354,42355</NoWarn>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>-->
+  <!--<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DocumentationFile>
+    </DocumentationFile>
+    <DefineDebug>false</DefineDebug>
+    <NoWarn>42016,42017,42018,42019,42032,42353,42354,42355</NoWarn>
+    <DebugType>none</DebugType>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>-->
+  <PropertyGroup>
+    <OptionExplicit>Off</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <OutputPath>C:\ProgramData\Autodesk\Inventor Addins\AddinWithAuxThread\</OutputPath>
+    <NoWarn>42016,42017,42018,42019,42032,42353,42354,42355</NoWarn>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <NoWarn>42016,42017,42018,42019,42032,42353,42354,42355</NoWarn>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net48'">
+    <OutputPath>..\..\..\..\ProgramData\Autodesk\Inventor Addins\AddinWithAuxThread\</OutputPath>
+  </PropertyGroup>
+
+	<ItemGroup>
+    <Compile Remove="Check-Rules\**" />
+    <Compile Remove="Documentation\AddinWithAuxThread_Help_RUS_ver1\**" />
+    <Compile Remove="Resources\**" />
+    <EmbeddedResource Remove="Check-Rules\**" />
+    <EmbeddedResource Remove="Documentation\AddinWithAuxThread_Help_RUS_ver1\**" />
+    <EmbeddedResource Remove="Resources\**" />
+    <None Remove="Check-Rules\**" />
+    <None Remove="Documentation\AddinWithAuxThread_Help_RUS_ver1\**" />
+    <None Remove="Resources\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Update="System">
+      <Name>System</Name>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="ConfigDialog.Designer.vb">
+      <DependentUpon>ConfigDialog.vb</DependentUpon>
+    </Compile>
+    <Compile Update="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="ReportForm.Designer.vb">
+      <DependentUpon>ReportForm.vb</DependentUpon>
+    </Compile>
+    <Compile Update="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Autodesk.AddinWithAuxThread.Inventor.addin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Autodesk.Inventor.Interop">
+      <HintPath>-Inv-Libs\Inv24.3\autodesk.inventor.interop.dll</HintPath>
+      <Private>False</Private>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Management" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Runtime" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Check-Notes\en-US\Chk-00-DesignDoctor.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\en-US\Chk-00-DisplayName.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\en-US\Chk-2D-BOM-and-ItemRefs.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\en-US\Chk-2D-DimensionOverride.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\en-US\Chk-2D-EmptySheet.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\en-US\Chk-2D-FactoryConfigTable.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\en-US\Chk-2D-Filename.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\en-US\Chk-2D-NonCADfontAnnot.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\en-US\Chk-2D-SuppressedView.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\en-US\Chk-2D-TechReqs.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\en-US\Chk-2D-UpToDate.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\en-US\Chk-2D-ViewLabel.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\en-US\Chk-3D-Adaptivity.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\en-US\Chk-3D-AnnotStandard.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\en-US\Chk-3D-EmptySketch.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\en-US\Chk-3D-FactoryConfigTable.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\en-US\Chk-3D-FixSketchConstraint.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\en-US\Chk-3D-NonParamFeature.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\en-US\Chk-3D-Threads.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\en-US\Chk-3D-Thumbnail.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\en-US\Chk-3D-UnderConstrSketch.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\en-US\Chk-3D-UnusedGeomObject.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\en-US\Chk-3D-UnusedLocalStyles.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\en-US\Chk-3D-UnusedParamRef.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\en-US\Chk-3D-UpToDate.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\en-US\Chk-3D-ZeroSketchDimension.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\en-US\Chk-3Dassy-BaseComp.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\en-US\Chk-3Dassy-CompLocation.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\en-US\Chk-3Dassy-FactoryDirectUse.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\en-US\Chk-3Dassy-Interference.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\en-US\Chk-3Dassy-PositionalRep.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\en-US\Chk-3Dassy-StaticQTYinBOM.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\en-US\Chk-3Dassy-Topology.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\en-US\Chk-3Dassy-VirtualComp.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\en-US\Chk-3Dpart-Interference.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\en-US\Chk-3Dpart-SheetMetal.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\en-US\Chk-3Dpart-Topology.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\en-US\Chk-3Dpart-UnusedFeature.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\ru-RU\Chk-00-DesignDoctor.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\ru-RU\Chk-00-DisplayName.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\ru-RU\Chk-2D-BOM-and-ItemRefs.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\ru-RU\Chk-2D-DimensionOverride.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\ru-RU\Chk-2D-EmptySheet.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\ru-RU\Chk-2D-FactoryConfigTable.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\ru-RU\Chk-2D-Filename.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\ru-RU\Chk-2D-NonCADfontAnnot.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\ru-RU\Chk-2D-SuppressedView.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\ru-RU\Chk-2D-TechReqs.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\ru-RU\Chk-2D-UpToDate.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\ru-RU\Chk-2D-ViewLabel.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\ru-RU\Chk-3D-Adaptivity.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\ru-RU\Chk-3D-AnnotStandard.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\ru-RU\Chk-3D-EmptySketch.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\ru-RU\Chk-3D-FactoryConfigTable.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\ru-RU\Chk-3D-FixSketchConstraint.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\ru-RU\Chk-3D-NonParamFeature.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\ru-RU\Chk-3D-Threads.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\ru-RU\Chk-3D-Thumbnail.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\ru-RU\Chk-3D-UnderConstrSketch.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\ru-RU\Chk-3D-UnusedGeomObject.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\ru-RU\Chk-3D-UnusedLocalStyles.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\ru-RU\Chk-3D-UnusedParamRef.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\ru-RU\Chk-3D-UpToDate.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\ru-RU\Chk-3D-ZeroSketchDimension.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\ru-RU\Chk-3Dassy-BaseComp.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\ru-RU\Chk-3Dassy-CompLocation.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\ru-RU\Chk-3Dassy-FactoryDirectUse.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\ru-RU\Chk-3Dassy-Interference.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\ru-RU\Chk-3Dassy-PositionalRep.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\ru-RU\Chk-3Dassy-StaticQTYinBOM.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\ru-RU\Chk-3Dassy-Topology.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\ru-RU\Chk-3Dassy-VirtualComp.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\ru-RU\Chk-3Dpart-Interference.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\ru-RU\Chk-3Dpart-SheetMetal.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\ru-RU\Chk-3Dpart-Topology.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Check-Notes\ru-RU\Chk-3Dpart-UnusedFeature.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Documentation\About-AddinWithAuxThread-EN.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Documentation\About-AddinWithAuxThread-RU.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Documentation\AddinWithAuxThread-Check-Notes-EN.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Documentation\AddinWithAuxThread-Check-Notes-RU.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <PostBuildEvent>
+		REM REM ### DLL-obfuscation ###
+		if $(Configuration) == Release (
+
+"C:\-install\-Coding\-IP-protect\Obfuscation\Confuser+\Confuser2-by-mkaring-ver1-6\ConfuserEx2-CLI\Confuser.CLI.exe" "$(SolutionDir)AddinWithAuxThread-Max-Protect.crproj"
+		move "$(ProjectDir)bin\Release\AddinWithAuxThread.dll" ..
+
+		REM REM ren "$(ProjectDir)bin\AddinWithAuxThread.dll" AddinWithAuxThread-Original--%25date:~9,4%25-%25date:~6,2%25-%25date:~3,2%25--%25time:~0,2%25-%25time:~3,2%25.dll
+		for /F "tokens=2 delims==." %25%25I in ('%25SystemRoot%25\System32\wbem\wmic.exe OS GET LocalDateTime /VALUE') do set "LocalDT=%25%25I"
+		set "LocalDT=%25LocalDT:~0,12%25"
+		ren "$(ProjectDir)bin\AddinWithAuxThread.dll" AddinWithAuxThread-Original--%25LocalDT%25.dll
+
+		move "$(ProjectDir)bin\Release\Confused\AddinWithAuxThread.dll" "$(ProjectDir)bin\Release"
+		rmdir "$(ProjectDir)bin\Release\Confused\"
+		REM REM ###################
+
+		"%25WiX%25bin\heat.exe" dir "$(ProjectDir)bin\Release" -sfrag -dr "ADDIN_INSTALL_DIR" -srd -cg "CG_ProductComponents" -gg -suid -sreg -var var.AddinWithAuxThread.TargetDir -out "$(SolutionDir)Setup-Project\AddIn-Files(Auto).wxs"
+
+		REM REM "%25WiX%25bin\heat.exe" dir "$(ProjectDir)bin\Release\Check-Rules" -sfrag -dr "ILOGICVBS_DIR" -srd -cg "CG_Rules" -gg -suid -sreg -var var.CheckRulesSubFolder -out "$(SolutionDir)Setup-Project\Check-Rule-Files(Auto).wxs"
+		REM REM "%25WiX%25bin\heat.exe" dir "$(ProjectDir)bin\Release\Check-Notes\ru-RU" -sfrag -dr "RU_RU_DIR" -srd -cg "CG_Notes_Ru" -gg -suid -sreg -var var.RuCheckNotesSubFolder -out "$(SolutionDir)Setup-Project\Check-Note-files-RU(Auto).wxs"
+		REM REM "%25WiX%25bin\heat.exe" dir "$(ProjectDir)bin\Release\Check-Notes\en-US" -sfrag -dr "EN_US_DIR" -srd -cg "CG_Notes_En" -gg -suid -sreg -var var.EnCheckNotesSubFolder -out "$(SolutionDir)Setup-Project\Check-Note-files-EN(Auto).wxs"
+		)
+	</PostBuildEvent>
+    <AssemblyTitle>%27AddinWithAuxThread%27 Add-In for Autodesk Inventor</AssemblyTitle>
+    <Product>AddinWithAuxThread for Autodesk Inventor</Product>
+    <Copyright>Copyright © 2024</Copyright>
+    <AssemblyVersion>26.0.0.%2a</AssemblyVersion>
+  </PropertyGroup>
+</Project>
