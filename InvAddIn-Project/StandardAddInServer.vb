@@ -149,20 +149,21 @@ Namespace AddinWithAuxThread
                                                    AppendLineToLogFile("GlobalDT START")
 
                                                    While Not cts.Token.IsCancellationRequested
-                                                       'Try
-                                                       globDateTime = DateTime.MinValue
+                                                       Try
+                                                           globDateTime = DateTime.MinValue
 
-                                                       globDateTime = GetGlobalDateTimeFromWinSrv()
+                                                           globDateTime = GetGlobalDateTimeFromWinSrv()
 
-                                                       AppendLineToLogFile(vbTab & TimeString & " Global DT is: " & globDateTime.ToString)
-                                                       Thread.Sleep(60000) ' 1min GlobalDT request period
+                                                           AppendLineToLogFile(vbTab & TimeString & " Global DT is: " & globDateTime.ToString)
+                                                           Thread.Sleep(60000) ' 1min GlobalDT request period
 
-                                                       'Catch ex As Exception
-                                                       '    AppendLineToLogFile(vbTab & "GlobalDT !!! EXCEPTION !!! " & ex.Message)
+                                                           'Catch ex As Exception
+                                                           '    AppendLineToLogFile(vbTab & "GlobalDT !!! EXCEPTION !!! " & ex.Message)
 
-                                                       'Catch
-                                                       'AppendLineToLogFile(vbTab & "GlobalDT !!! EXCEPTION !!!")
-                                                       'End Try
+                                                       Catch
+                                                           'AppendLineToLogFile(vbTab & "GlobalDT !!! EXCEPTION !!!")
+                                                           Throw
+                                                       End Try
                                                    End While
 
                                                    AppendLineToLogFile("GlobalDT END")
