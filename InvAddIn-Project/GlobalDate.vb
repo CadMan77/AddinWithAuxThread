@@ -12,14 +12,30 @@ Module GlobalDate
 		End Using
 	End Sub
 
-	Function GetGlobalDateTimeFromWinSrv() As DateTime
-		Dim utcNtpDT As DateTime = NtpClient.GetNetworkTime()
+	'Function GetGlobalDateTimeFromWinSrv() As DateTime
+	'Async Function GetGlobalDateTimeFromWinSrv() As Task(Of DateTime)
+	'	Dim utcNtpDT As DateTime = NtpClient.GetNetworkTime()
 
-		If utcNtpDT = DateTime.MinValue Then
-			AppendLineToLogFile("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-			Return DateTime.MinValue
-		End If
+	'	If utcNtpDT = DateTime.MinValue Then
+	'		AppendLineToLogFile("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+	'		Return DateTime.MinValue
+	'	End If
 
-		Return utcNtpDT
+	'	Return utcNtpDT
+	'End Function
+
+	Async Function GetGlobalDateTimeFromWinSrv() As Task(Of DateTime)
+		Return Await Task.Run(Function()
+								  Dim utcNtpDT As DateTime = NtpClient.GetNetworkTime()
+
+								  If utcNtpDT = DateTime.MinValue Then
+									  AppendLineToLogFile("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+									  Return DateTime.MinValue
+								  End If
+
+								  Return utcNtpDT
+							  End Function)
 	End Function
+
+
 End Module

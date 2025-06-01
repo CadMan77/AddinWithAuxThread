@@ -136,7 +136,7 @@ Namespace AddinWithAuxThread
         ' This method is called by Inventor when it loads the AddIn. The AddInSiteObject provides access  
         ' to the Inventor Application object. The FirstTime flag indicates if the AddIn is loaded for
         ' the first time. However, with the introduction of the ribbon this argument is ALWAYS true.
-        Public Sub Activate(ByVal addInSiteObject As ApplicationAddInSite, ByVal firstTime As Boolean) Implements ApplicationAddInServer.Activate
+        Public Async Sub Activate(ByVal addInSiteObject As ApplicationAddInSite, ByVal firstTime As Boolean) Implements ApplicationAddInServer.Activate
             ' Initialize AddIn members.
 
             Try
@@ -145,29 +145,37 @@ Namespace AddinWithAuxThread
 
                 cts = New CancellationTokenSource
 
-                GetGlobDateTimeTask = Task.Run(Sub()
+                GetGlobDateTimeTask = Task.Run(Async Function()
                                                    AppendLineToLogFile("GlobalDT START")
 
-                                                   While Not cts.Token.IsCancellationRequested
-                                                       Try
+                                                   Try
+                                                       While Not cts.Token.IsCancellationRequested
                                                            globDateTime = DateTime.MinValue
 
-                                                           globDateTime = GetGlobalDateTimeFromWinSrv()
+                                                           globDateTime = Await GetGlobalDateTimeFromWinSrv()
 
                                                            AppendLineToLogFile(vbTab & TimeString & " Global DT is: " & globDateTime.ToString)
-                                                           Thread.Sleep(60000) ' 1min GlobalDT request period
 
-                                                           'Catch ex As Exception
-                                                           '    AppendLineToLogFile(vbTab & "GlobalDT !!! EXCEPTION !!! " & ex.Message)
+                                                           '' 1min GlobalDT request period
+                                                           ' Thread.Sleep(60000) 
+                                                           Await Task.Delay(60000, cts.Token)
+                                                       End While
 
-                                                       Catch
-                                                           'AppendLineToLogFile(vbTab & "GlobalDT !!! EXCEPTION !!!")
-                                                           Throw
-                                                       End Try
-                                                   End While
+                                                       'Catch ex As Exception
+                                                       '    AppendLineToLogFile(vbTab & "GlobalDT !!! EXCEPTION !!! " & ex.Message)
+
+                                                   Catch
+                                                       AppendLineToLogFile(vbTab & "GlobalDT !!! EXCEPTION !!!")
+                                                       'Throw
+                                                   End Try
 
                                                    AppendLineToLogFile("GlobalDT END")
-                                               End Sub, cts.Token)
+                                               End Function, cts.Token)
+
+
+
+                ' Call the Async method from another Async scope
+                Await RunGlobalDateTimeTask()
 
 
 
@@ -187,10 +195,23 @@ Namespace AddinWithAuxThread
 
                 Thread.Sleep(2000)
 
-                invApp = addInSiteObject.Application
 
-                AppEvents = invApp.ApplicationEvents()
-                UiEvents = invApp.UserInterfaceManager.UserInterfaceEvents()
+                '' Await the task to properly catch AggregateException
+                'Try
+                '    Await GetGlobDateTimeTask
+                'Catch ae As AggregateException
+                '    AppendLineToLogFile(vbTab & "GlobalDT !!! AGGREGATE EXCEPTION !!! ")
+                '    For Each ex In ae.InnerExceptions
+                '        AppendLineToLogFile(vbTab & " - Exception: " & ex.Message)
+                '    Next
+                'Catch ex As Exception
+                '    AppendLineToLogFile(vbTab & "GlobalDT !!! GENERAL EXCEPTION !!! " & ex.Message)
+                'End Try
+
+                'invApp = addInSiteObject.Application
+
+                'AppEvents = invApp.ApplicationEvents()
+                'UiEvents = invApp.UserInterfaceManager.UserInterfaceEvents()
 
                 ' Add to the user interface, if it's the first time.
                 ' TODO: Add button definitions.
@@ -207,6 +228,23 @@ Namespace AddinWithAuxThread
                 MessageBox.Show(ex.Message, dllName + " - " + MethodBase.GetCurrentMethod().Name, 0, MessageBoxIcon.Error)
             End Try
         End Sub
+
+
+
+        Async Function RunGlobalDateTimeTask() As Task
+            Try
+                Await GetGlobDateTimeTask ' Now works inside an Async method
+            Catch ae As AggregateException
+                AppendLineToLogFile(vbTab & "GlobalDT !!! AGGREGATE EXCEPTION !!! ")
+                For Each ex In ae.InnerExceptions
+                    AppendLineToLogFile(vbTab & " - Exception: " & ex.Message)
+                Next
+            Catch ex As Exception
+                AppendLineToLogFile(vbTab & "GlobalDT !!! GENERAL EXCEPTION !!! " & ex.Message)
+            End Try
+        End Function
+
+
 
 
         ' This method is called by Inventor when the AddIn is unloaded. The AddIn will be
